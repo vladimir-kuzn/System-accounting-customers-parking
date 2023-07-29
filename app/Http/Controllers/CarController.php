@@ -6,13 +6,19 @@ use App\Models\Car;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::with('client')->paginate(10);
-        return view('cars.index', compact('cars'));
+        try {
+            $cars = Car::with('client')->paginate(10);
+            return view('cars.index', compact('cars'));
+        } catch (QueryException $e) {
+            $errorMessage = "Ошибка подключения к базе данных: " . $e->errorInfo[2];
+            return view('layouts.error', compact('errorMessage'));
+        }
     }
 
     public function create()

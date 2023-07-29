@@ -7,13 +7,19 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 class ClientController extends Controller
 {
     public function index()
     {
-        $clients = Client::with('cars')->paginate(10);
-        return view('clients.index', compact('clients'));
+        try {
+            $clients = Client::with('cars')->paginate(10);
+            return view('clients.index', compact('clients'));
+        } catch (QueryException $e) {
+            $errorMessage = "Ошибка подключения к базе данных: " . $e->errorInfo[2];
+            return view('layouts.error', compact('errorMessage'));
+        }
     }
 
     public function create()
