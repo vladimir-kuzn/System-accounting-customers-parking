@@ -21,20 +21,20 @@
                 <!-- Данные клиентов -->
                 @foreach ($clients as $client)
                     <div
-                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center">{{ $client->name }}</div>
+                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center items-center">{{ $client->name }}</div>
                     <div
-                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center">{{ $client->gender }}</div>
+                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center items-center">{{ $client->gender }}</div>
                     <div
-                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center">{{ $client->phone }}</div>
+                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center items-center">{{ $client->phone }}</div>
                     <div
-                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center">{{ $client->address }}</div>
-                    <div class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center">
+                        class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center items-center">{{ $client->address }}</div>
+                    <div class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black text-center flex justify-center items-center">
                         <a href="{{ route('clients.edit', $client->id) }}"
                            class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded h-fit">Редактировать</a>
                     </div>
-                    <div class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black">
+                    <div class="col-span-1 @if($loop->odd) bg-gray-300 @endif p-2 border-t border-black flex justify-center items-center">
                         <form action="{{ route('clients.destroy', $client->id) }}"
-                              class="flex justify-center" method="POST">
+                              method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded deleteButton">
@@ -46,36 +46,36 @@
                     <div
                         class="col-span-6 @if($loop->odd) bg-gray-300 @endif p-4 border-t border-gray-400 border-dashed">
                         <!-- Таблица машин для клиента -->
-                        <h3 class="text-lg font-semibold mb-2">Машины клиента:</h3>
                         @if($client->cars->isEmpty())
-                            <h3 class="text-lg font-semibold mb-2">Нет машин</h3>
+                            <h3 class="text-lg font-semibold mb text-gray-400 text-center">Нет машин</h3>
                         @else
-                            <div class="grid grid-cols-6 gap-4 p-4">
-                                <div class="col-span-1 font-semibold text-center">Бренд</div>
-                                <div class="col-span-1 font-semibold text-center">Модель</div>
-                                <div class="col-span-1 font-semibold text-center">Цвет</div>
-                                <div class="col-span-1 font-semibold text-center">Гос. номер</div>
-                                <div class="col-span-1 font-semibold text-center">Редактировать</div>
-                                <div class="col-span-1 font-semibold text-center">Удалить</div>
+                            <h3 class="text-lg font-semibold">Машины клиента:</h3>
+                            <div class="grid grid-cols-6 p-4">
+                                <div class="col-span-1 font-semibold text-center mb-4">Бренд</div>
+                                <div class="col-span-1 font-semibold text-center mb-4">Модель</div>
+                                <div class="col-span-1 font-semibold text-center mb-4">Цвет</div>
+                                <div class="col-span-1 font-semibold text-center mb-4">Гос. номер</div>
+                                <div class="col-span-1 font-semibold text-center mb-4">Редактировать</div>
+                                <div class="col-span-1 font-semibold text-center mb-4">Удалить</div>
                                 <!-- Данные о машинах клиента -->
                                 @foreach ($client->cars as $car)
-                                    <div class="col-span-1 text-center">{{ $car->brand }}</div>
-                                    <div class="col-span-1 text-center">{{ $car->model }}</div>
-                                    <div class="col-span-1 text-center">{{ $car->color }}</div>
-                                    <div class="col-span-1 text-center">
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">{{ $car->brand }}</div>
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">{{ $car->model }}</div>
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">{{ $car->color }}</div>
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">
                                         <x-license-plate
                                             carId="{{ $car->id }}"
                                             loopLast="{{ $loop->last }}"
                                             isOnParking="{{ $car->is_on_parking }}"
                                             licensePlate="{{ $car->license_plate }}"/>
                                     </div>
-                                    <div class="col-span-1 text-center flex justify-center">
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">
                                         <a href="{{ route('cars.edit', $car->id) }}"
-                                           class="block bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">Редактировать</a>
+                                           class="block bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded h-min">Редактировать</a>
                                     </div>
-                                    <div class="col-span-1 text-center">
+                                    <div class="col-span-1 text-center bg-white p-2 flex justify-center items-center">
                                         <form action="{{ route('cars.destroy', $car->id) }}"
-                                              class="flex justify-center" method="POST">
+                                              method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button
